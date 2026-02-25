@@ -1,0 +1,20 @@
+{
+  "name": "rate-limiter-demo",
+  "version": "1.0.0",
+  "description": "Rate limiting demo app showcasing multiple algorithms",
+  "main": "server.js",
+  "scripts": {
+    "main": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "keywords": [],
+  "author": "Dev Shai",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
