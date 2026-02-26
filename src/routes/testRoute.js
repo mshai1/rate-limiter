@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const fixedWindowLimiter = require("../middleware/fixedWindow");
+const redisFixedWindowLimiter = require("../middleware/redisFixedWindow");
 
-router.get("/test", fixedWindowLimiter, (req, res) => {
+router.get("/test", redisFixedWindowLimiter, (req, res) => {
     res.json({
         message: "Request successful",
         timestamp: Date.now()
