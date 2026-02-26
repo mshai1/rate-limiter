@@ -15,9 +15,16 @@ async function redisFixedWindowLimiter(req, res, next) {
             await redisClient.expire(key, windowSize);
         }
 
-        if(requestCount > maxRequests) {
-            const ttl = await redisClient.ttl(key);
+        const ttl = await redisClient.ttl(key);
+        const remaining = Math.max(0, maxRequests - requestCount);
+        const resetTimestamp = Math.floor(Date.now() / 1000) + ttl;
 
+        //Set headers for every request
+        res.set("X-RateLimit-Limit", maxRequests);
+        res.set("X_RateLimit-Remaining", remaining);
+        res.set("X-RateLimit-Reset", resetTimestamp);
+        
+        if(requestCount > maxRequests) {
             return res.status(429).json({
                 error: "Rate limit exceeded",
                 retryAfter:ttl
