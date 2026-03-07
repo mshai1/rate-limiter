@@ -34,7 +34,7 @@ function leakyBucketLimiter(req, res, next) {
     }
 
     const timeSinceLastLeak = (now - bucket.lastLeak) / 1000;
-    const retyrAfter = Math.ceil((1/LEAK_RATE)) - timeSinceLastLeak;
+    const retyrAfter = Math.ceil((1/LEAK_RATE) - timeSinceLastLeak);
 
     res.setHeader("Retry-After", retyrAfter > 0 ? retyrAfter : 1);
     return res.status(429).json({
